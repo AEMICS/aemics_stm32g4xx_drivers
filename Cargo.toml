@@ -1,0 +1,21 @@
+[package]
+name = "aemics_drivers"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aemics-stm32g4xx-hal = { git = "https://gitlab.aemics.nl/aepym/30023200.git", features = ["rt","stm32g473"]}
+
+[profile.dev]
+codegen-units = 1
+debug = true
+incremental = false
+lto = false
+
+[profile.release]
+debug = true
+codegen-units = 1
+incremental = false
+lto = true
