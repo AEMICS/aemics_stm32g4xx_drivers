@@ -5,7 +5,7 @@ version = 3
 [[package]]
 name = "aemics-stm32g4xx-hal"
 version = "0.0.0"
-source = "git+https://gitlab.aemics.nl/aepym/30023200.git#b53eea3aea3e2560d526215a8cf46cf7442de3bc"
+source = "git+https://gitlab.aemics.nl/aepym/30023200.git#12cc37a5ec5bac4ceaa0fd4a52a0e9e4b9d82f15"
 dependencies = [
  "bare-metal 1.0.0",
  "bitflags 2.5.0",
@@ -129,7 +129,7 @@ checksum = "7059fff8937831a9ae6f0fe4d658ffabf58f2ca96aa9dec1c889f936f705f216"
 [[package]]
 name = "custom_hal_api"
 version = "0.1.0"
-source = "git+https://gitlab.aemics.nl/aepym/30023200.git#b53eea3aea3e2560d526215a8cf46cf7442de3bc"
+source = "git+https://gitlab.aemics.nl/aepym/30023200.git#12cc37a5ec5bac4ceaa0fd4a52a0e9e4b9d82f15"
 dependencies = [
  "embedded-hal 0.2.7",
  "nb 1.1.0",

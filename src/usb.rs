@@ -1,6 +1,6 @@
 use aemics_stm32g4xx_hal as hal;
 
-use hal::usb::USBObj;
+
 use hal::{
     //rcc::{Config, RccExt},
     stm32,
@@ -10,17 +10,9 @@ use hal::preludes::{
     default::*,
     interrupts::*,
     timers::*,
+    usb::*
 };
 
-
-use hal::stm32_usbd::UsbBus;
-
-//USB drivers
-use hal::usb_device::prelude::*;
-use hal::usbd_serial::{SerialPort, USB_CLASS_CDC};
-
-use hal::usb_device::bus::UsbBusAllocator;
-use hal::usb::UsbBusType;
 
 use hal::stm32g4::stm32g473::{TIM2, USB};
 use hal::rcc::Clocks;
@@ -40,6 +32,10 @@ pub struct UsbDriver {
 pub trait Write {
     fn write(&mut self, data: &[u8]) -> Result<usize, UsbError>;
     fn write_ln(&mut self, data: &[u8]) -> Result<usize, UsbError>;
+}
+
+pub trait Read {
+    fn read(&mut self, buffer: &mut [u8]) -> Result<usize, UsbError>;
 }
 
 impl UsbDriver {
@@ -103,6 +99,24 @@ impl Write for UsbDriver {
         // Here we assume a newline is "\r\n" as commonly used in serial communication
         let newline = b"\r\n";
         self.write(newline).map(|_| count)
+    }
+}
+
+impl Read for UsbDriver {
+    fn read(&mut self, buffer: &mut [u8]) -> Result<usize, UsbError> {
+        cortex_m::interrupt::free(|cs| {
+            if let Some(ref mut serial) = unsafe { MUTEX_USB_SERIAL.borrow(cs).borrow_mut().deref_mut() } {
+                match serial.read(buffer) {
+                    Ok(count) => match serial.flush() {
+                        Ok(_) | Err(UsbError::WouldBlock) => Ok(count),
+                        Err(err) => Err(err),
+                    },
+                    Err(e) => Err(e),
+                }
+            } else {
+                Err(UsbError::WouldBlock)
+            }
+        })
     }
 }
 
