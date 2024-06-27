@@ -1,12 +1,21 @@
 [package]
-name = "aemics_drivers"
+name = "aemics_stm32g4xx_drivers"
+categories = ["drivers", "embedded", "hardware-support", "no-std"]
+keywords = ["arm", "cortex-m", "stm32g4xx", "hal", "drivers", "USB", "CDC", "ACM"]
+authors = ["Wybren van den Akker"]
 version = "0.1.0"
 edition = "2021"
+license="MIT/Apache-2.0"
+homepage = "https://www.aemics.nl"
+readme = "README.md"
+repository = "https://github.com/AEMICS/aemics_stm32g4xx_drivers"
+description = "Collection of drivers for STM32G4xx HAL"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aemics-stm32g4xx-hal = { git = "https://gitlab.aemics.nl/aepym/30023200.git", features = ["rt","stm32g473"]}
+aemics-stm32g4xx-hal = "0.1.0"
+# { git = "https://gitlab.aemics.nl/aepym/30023200.git", features = ["rt","stm32g473"]}
 
 [profile.dev]
 codegen-units = 1
