@@ -1,7 +1,7 @@
 [package]
 name = "aemics_stm32g4xx_drivers"
 categories = ["drivers", "embedded", "hardware-support", "no-std"]
-keywords = ["arm", "cortex-m", "stm32g4xx", "hal", "drivers", "USB", "CDC", "ACM"]
+keywords = ["stm32g4xx", "drivers", "USB", "CDC", "ACM"]
 authors = ["Wybren van den Akker"]
 version = "0.1.0"
 edition = "2021"
